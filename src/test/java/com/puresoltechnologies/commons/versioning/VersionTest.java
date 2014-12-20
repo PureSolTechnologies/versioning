@@ -5,8 +5,6 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 import org.junit.Test;
 
-import com.puresoltechnologies.commons.versioning.Version;
-
 public class VersionTest {
 
     @Test
@@ -96,8 +94,8 @@ public class VersionTest {
 	assertThat(version.getBuildMetadata(), equalTo("exp.sha.5114f85"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testIllegalZeroVersion() {
+    @Test
+    public void testLegalZeroVersion() {
 	new Version(0, 0, 0);
     }
 

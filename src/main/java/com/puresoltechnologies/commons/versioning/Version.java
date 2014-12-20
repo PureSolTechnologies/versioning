@@ -391,10 +391,6 @@ public class Version implements Serializable, Comparable<Version> {
 	    throw new IllegalArgumentException(
 		    "The patch version must not be negative.");
 	}
-	if (major + minor + patch == 0) {
-	    throw new IllegalArgumentException(
-		    "The version must contain at least one non zero digit.");
-	}
 	if (preReleaseInformation != null) {
 	    if (!preReleaseInformationPattern.matcher(preReleaseInformation)
 		    .matches()) {
