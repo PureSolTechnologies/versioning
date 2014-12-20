@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -280,7 +281,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 public class Version implements Serializable, Comparable<Version> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1244266300301153293L;
 
     private static final String IDENTIFIER_CHARACTERS = "[0-9A-Za-z-]";
 
@@ -430,6 +431,7 @@ public class Version implements Serializable, Comparable<Version> {
 	return buildMetadata;
     }
 
+    @JsonIgnore
     public boolean isStable() {
 	return major > 0;
     }

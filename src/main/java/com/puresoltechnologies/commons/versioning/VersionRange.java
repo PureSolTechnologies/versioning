@@ -1,5 +1,10 @@
 package com.puresoltechnologies.commons.versioning;
 
+import java.io.Serializable;
+
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * This class represents a version range based on semantic versions implemented
  * as {@link Version}.
@@ -17,12 +22,24 @@ package com.puresoltechnologies.commons.versioning;
  * @author Rick-Rainer Ludwig
  *
  */
-public class VersionRange {
+public class VersionRange implements Serializable {
+
+    private static final long serialVersionUID = -5875033722249170166L;
 
     private final Version minimum;
     private final boolean minimumIncluded;
     private final Version maximum;
     private final boolean maximumIncluded;
+
+    /**
+     * This default constructor is only convenience for JSON serialization.
+     */
+    public VersionRange() {
+	minimum = null;
+	minimumIncluded = false;
+	maximum = null;
+	maximumIncluded = false;
+    }
 
     /**
      * This is the full initial value constructor. The
@@ -44,8 +61,11 @@ public class VersionRange {
      *            (whether it is right closed). This value is not allowed to be
      *            true in case of no upper boundary.
      */
-    public VersionRange(Version minimum, boolean minimumIncluded,
-	    Version maximum, boolean maximumIncluded) {
+    @JsonCreator
+    public VersionRange(@JsonProperty("minimum") Version minimum,
+	    @JsonProperty("minimumIncluded") boolean minimumIncluded,
+	    @JsonProperty("maximum") Version maximum,
+	    @JsonProperty("maximumIncluded") boolean maximumIncluded) {
 	super();
 	if (minimum != null) {
 	    this.minimum = minimum;
@@ -66,6 +86,22 @@ public class VersionRange {
 	}
     }
 
+    public Version getMinimum() {
+	return minimum;
+    }
+
+    public boolean isMinimumIncluded() {
+	return minimumIncluded;
+    }
+
+    public Version getMaximum() {
+	return maximum;
+    }
+
+    public boolean isMaximumIncluded() {
+	return maximumIncluded;
+    }
+
     /**
      * Checks whether a specified version is included in the version range or
      * not.
@@ -76,19 +112,23 @@ public class VersionRange {
      *         current range. <code>false</code> is returned otherwise.
      */
     public final boolean includes(Version version) {
-	int minimumComparison = minimum.compareTo(version);
-	if ((minimum != null) && (minimumComparison > 0)) {
-	    return false;
+	if (minimum != null) {
+	    int minimumComparison = minimum.compareTo(version);
+	    if (minimumComparison > 0) {
+		return false;
+	    }
+	    if ((!minimumIncluded) && (minimumComparison == 0)) {
+		return false;
+	    }
 	}
-	int maximumComparison = maximum.compareTo(version);
-	if ((maximum != null) && (maximumComparison < 0)) {
-	    return false;
-	}
-	if ((!minimumIncluded) && (minimumComparison == 0)) {
-	    return false;
-	}
-	if ((!maximumIncluded) && (maximumComparison == 0)) {
-	    return false;
+	if (maximum != null) {
+	    int maximumComparison = maximum.compareTo(version);
+	    if (maximumComparison < 0) {
+		return false;
+	    }
+	    if ((!maximumIncluded) && (maximumComparison == 0)) {
+		return false;
+	    }
 	}
 	return true;
     }

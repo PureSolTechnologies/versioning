@@ -2,7 +2,12 @@ package com.puresoltechnologies.commons.versioning;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 
 public class VersionTest {
@@ -214,5 +219,15 @@ public class VersionTest {
 	assertThat(version8.compareTo(version7), equalTo(1));
 
 	assertThat(version8.compareTo(version8), equalTo(0));
+    }
+
+    @Test
+    public void testJSONSerialization() throws JsonGenerationException,
+	    JsonMappingException, IOException {
+	Version original = new Version(1, 2, 3, "pre", "meta");
+	String serialized = JSONSerializer.toJSONString(original);
+	Version deserialized = JSONSerializer.fromJSONString(serialized,
+		Version.class);
+	assertEquals(original, deserialized);
     }
 }

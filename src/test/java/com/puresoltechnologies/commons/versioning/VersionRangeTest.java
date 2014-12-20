@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 
 public class VersionRangeTest {
@@ -118,4 +122,14 @@ public class VersionRangeTest {
 	assertEquals("(0.0.0, 1.0.0)", range.toString());
     }
 
+    @Test
+    public void testJSONSerialization() throws JsonGenerationException,
+	    JsonMappingException, IOException {
+	VersionRange original = new VersionRange(new Version(1, 2, 3, "pre1",
+		"meta1"), false, new Version(4, 5, 6, "pre2", "meta2"), true);
+	String serialized = JSONSerializer.toJSONString(original);
+	VersionRange deserialized = JSONSerializer.fromJSONString(serialized,
+		VersionRange.class);
+	assertEquals(original, deserialized);
+    }
 }
