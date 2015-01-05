@@ -9,10 +9,18 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
+ * <p>
  * This class contains version information which is to be interpreted as
  * described in Semantic Versioning 2.0.0 (<a
  * href="http://semver.org">semver.org</a>).
- *
+ * </p>
+ * <p>
+ * <b>Note: this class has a natural ordering that is inconsistent with
+ * {@link #equals(Object)}.</b> equals checks correctly with build metadata
+ * information included, but Semantic Versioning does not include this metadata
+ * for version comparison. For any version comparison, use
+ * {@link #compareTo(Version)} instead of {@link #equals(Object)}.
+ * </p>
  * <h1>Semantic Versioning 2.0.0</h1> <h2>Summary</h2>
  * <p>
  * Given a version number MAJOR.MINOR.PATCH, increment the:
@@ -376,10 +384,10 @@ public class Version implements Serializable, Comparable<Version> {
 	} else {
 	    this.buildMetadata = buildMetadata;
 	}
-	checkContent();
+	verify();
     }
 
-    private final void checkContent() {
+    private void verify() {
 	if (major < 0) {
 	    throw new IllegalArgumentException(
 		    "The major version must not be negative.");
