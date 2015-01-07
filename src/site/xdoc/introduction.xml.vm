@@ -13,6 +13,14 @@
 
 	<body>
 		<section name="Introduction">
+			<p>
+				Project Description: ${project.description}
+			</p>
+			<p>
+				For how to use this project, please have a look to the
+				<a href="usage.html">Usage</a>
+				page.
+			</p>
 		</section>
 	</body>
 </document>
