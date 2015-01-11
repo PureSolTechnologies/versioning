@@ -19,7 +19,7 @@
 
 	<groupId>com.puresoltechnologies.versioning</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.4.1</version>
+	<version>0.4.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
   
 	<name>${officalName} - ${project.artifactId}</name>
