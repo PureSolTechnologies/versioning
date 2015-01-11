@@ -357,9 +357,9 @@ public class Version implements Serializable, Comparable<Version> {
 	this(major, minor, patch, null, null);
     }
 
-    public Version(int major, int minor, int patchVersion,
+    public Version(int major, int minor, int patch,
 	    String preReleaseInformation) {
-	this(major, minor, patchVersion, preReleaseInformation, null);
+	this(major, minor, patch, preReleaseInformation, null);
     }
 
     @JsonCreator

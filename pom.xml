@@ -8,7 +8,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<officalName>PureSol Technologies' Commons</officalName>
+		<officalName>Versioning</officalName>
+		<commons.version>0.3.0</commons.version>
 	</properties>
 
 	<parent>
@@ -17,7 +18,7 @@
 		<version>9</version>
 	</parent>
 
-	<groupId>com.puresoltechnologies.commons</groupId>
+	<groupId>com.puresoltechnologies.versioning</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -41,9 +42,9 @@
 	</licenses>
 
 	<scm>
-		<developerConnection>scm:git:https://github.com/PureSolTechnologies/commons</developerConnection>
-		<connection>scm:git:https://github.com/PureSolTechnologies/commons</connection>
-		<url>https://github.com/PureSolTechnologies/commons.git</url>
+		<developerConnection>scm:git:https://github.com/PureSolTechnologies/versioning</developerConnection>
+		<connection>scm:git:https://github.com/PureSolTechnologies/versioning</connection>
+		<url>https://github.com/PureSolTechnologies/versioning.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -59,19 +60,19 @@
 
 	<issueManagement>
 		<system>Redmine</system>
-		<url>https://bugs.puresol-technologies.net/projects/commons</url>
+		<url>https://bugs.puresol-technologies.net/projects/versioning</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>https://travis-ci.org/RickRainerLudwig/commons</url>
+		<url>https://travis-ci.org/RickRainerLudwig/versioning</url>
 	</ciManagement>
 
 	<distributionManagement>
 		<site>
 			<id>FTPPureSolTechnologiesCom</id>
 			<name>FTPPureSolTechnologiesCom</name>
-			<url>ftp://puresol-technologies.com/opensource.puresol-technologies.com/projects/commons/${project.version}</url>
+			<url>ftp://puresol-technologies.com/opensource.puresol-technologies.com/projects/versioning/${project.version}</url>
 		</site>
 	</distributionManagement>
 
@@ -83,35 +84,10 @@
 			<dependency>
 				<groupId>com.puresoltechnologies.commons</groupId>
 				<artifactId>osgi</artifactId>
-				<version>${project.version}</version>
+				<version>${commons.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
-				<artifactId>money</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
-				<artifactId>misc</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
-				<artifactId>statemodel</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
-				<artifactId>trees</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
-				<artifactId>types</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
+				<groupId>com.puresoltechnologies.versioning</groupId>
 				<artifactId>versioning</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -136,21 +112,9 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.7.7</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>1.10.8</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>
@@ -185,18 +149,8 @@
 					<skipTestScope>true</skipTestScope>
 					<knownLicenses>
 						<knownLicense>
-							<name>Apache License, Version 2.0</name>
+							<name>The Apache Software License, Version 2.0</name>
 							<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-							<aliases>
-								<alias>The Apache Software License, Version 2.0</alias>
-							</aliases>
-						</knownLicense>
-						<knownLicense>
-							<name>The MIT License (MIT)</name>
-							<url>http://opensource.org/licenses/MIT</url>
-							<aliases>
-								<alias>MIT License</alias>
-							</aliases>
 						</knownLicense>
 					</knownLicenses>
 				</configuration>
@@ -359,19 +313,8 @@
 	</reporting>
 
 	<modules>
-		<module>osgi</module>
 		<module>versioning</module>
 		<module>versioning.bundle</module>
-		<module>types</module>
-		<module>types.bundle</module>
-		<module>trees</module>
-		<module>trees.bundle</module>
-		<module>money</module>
-		<module>money.bundle</module>
-		<module>statemodel</module>
-		<module>statemodel.bundle</module>
-		<module>misc</module>
-		<module>misc.bundle</module>
 	</modules>
 
 </project>
