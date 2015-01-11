@@ -1,4 +1,4 @@
-package com.puresoltechnologies.commons.versioning;
+package com.puresoltechnologies.versioning;
 
 import com.puresoltechnologies.commons.osgi.AbstractActivator;
 

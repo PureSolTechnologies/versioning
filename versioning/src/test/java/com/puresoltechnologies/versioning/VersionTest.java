@@ -1,4 +1,4 @@
-package com.puresoltechnologies.commons.versioning;
+package com.puresoltechnologies.versioning;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -9,6 +9,8 @@ import java.io.IOException;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
+
+import com.puresoltechnologies.versioning.Version;
 
 public class VersionTest {
 

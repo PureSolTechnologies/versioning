@@ -1,4 +1,4 @@
-package com.puresoltechnologies.commons.versioning;
+package com.puresoltechnologies.versioning;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,6 +9,9 @@ import java.io.IOException;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
+
+import com.puresoltechnologies.versioning.Version;
+import com.puresoltechnologies.versioning.VersionRange;
 
 public class VersionRangeTest {
 

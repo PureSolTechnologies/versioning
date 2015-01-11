@@ -1,4 +1,4 @@
-package com.puresoltechnologies.commons.versioning;
+package com.puresoltechnologies.versioning;
 
 /**
  * This class bundles mathematical functions for versions as it is done by

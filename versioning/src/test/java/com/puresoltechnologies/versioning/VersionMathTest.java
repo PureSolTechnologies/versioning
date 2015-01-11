@@ -1,8 +1,11 @@
-package com.puresoltechnologies.commons.versioning;
+package com.puresoltechnologies.versioning;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import com.puresoltechnologies.versioning.Version;
+import com.puresoltechnologies.versioning.VersionMath;
 
 public class VersionMathTest {
 
