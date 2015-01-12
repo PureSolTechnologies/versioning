@@ -313,7 +313,8 @@
 
 	<modules>
 		<module>versioning</module>
-		<module>versioning.bundle</module>
+		<module>bundle</module>
+		<module>test</module>
 	</modules>
 
 </project>
