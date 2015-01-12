@@ -1,7 +1,7 @@
 Versioning
 ==========
 
-Versioning is a library by PureSol Technologies bundling providing support to handle versions in a way defined by Semantic Versioning (http://semver.org). 
+Versioning is a library by PureSol Technologies providing functionality to manage and handle versions in a way defined by Semantic Versioning (http://semver.org). 
 
 __General information about the project can be found at:__
 
