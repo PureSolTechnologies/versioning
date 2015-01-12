@@ -1,12 +1,12 @@
-commons
-=======
+Versioning
+==========
 
-Commons is a library by PureSol Technologies bundling common functionality which is used by other projects. 
+Versioning is a library by PureSol Technologies providing functionality to manage and handle versions in a way defined by Semantic Versioning (http://semver.org). 
 
 __General information about the project can be found at:__
 
-http://opensource.puresol-technologies.com/commons
+http://opensource.puresol-technologies.com/versioning
     
 __Please, use the issue tracker at:__
 
-https://bugs.puresol-technologies.net/projects/commons
+https://bugs.puresol-technologies.net/projects/versioning
