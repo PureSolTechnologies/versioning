@@ -291,36 +291,89 @@ public class Version implements Serializable, Comparable<Version> {
 
     private static final long serialVersionUID = -1244266300301153293L;
 
+    /**
+     * Allowed characters for identifiers.
+     */
     private static final String IDENTIFIER_CHARACTERS = "[0-9A-Za-z-]";
 
+    /**
+     * Numeric identifier which may be plain zero or without a leading zero.
+     */
     private static final String NUMERIC_IDENTIFIER = "(0|[1-9]\\d*)";
+
+    /**
+     * Non-numeric identifier which needs to contain at least one letter to be
+     * non-numeric.
+     */
     private static final String NON_NUMERIC_IDENTIFIER = "\\d*[A-Za-z-]"
 	    + IDENTIFIER_CHARACTERS + "*";
 
+    /**
+     * Pre-release identifier which is either a numeric or non-numeric
+     * identifier.
+     */
     private static final String PRE_RELEASE_IDENTIFIER = "("
 	    + NUMERIC_IDENTIFIER + "|" + NON_NUMERIC_IDENTIFIER + ")";
 
+    /**
+     * Build identifier may be any combination of letters, numbers and minus.
+     */
     private static final String BUILD_IDENTIFIER = IDENTIFIER_CHARACTERS + "+";
 
+    /**
+     * Pre-release information may be a single or multiple pre-release
+     * identifier chained by dots.
+     */
     private static final String PRE_RELEASE_INFORMATION = PRE_RELEASE_IDENTIFIER
 	    + "(\\." + PRE_RELEASE_IDENTIFIER + ")*";
 
+    /**
+     * Build information may be a single or multiple build identifier chained by
+     * dots.
+     */
     private static final String BUILD_INFORMATION = BUILD_IDENTIFIER + "(\\."
 	    + BUILD_IDENTIFIER + ")*";
 
+    /**
+     * The compiled pattern for pre-release information.
+     */
     private static final Pattern preReleaseInformationPattern = Pattern
 	    .compile(PRE_RELEASE_INFORMATION);
+
+    /**
+     * The compiled pattern for build information.
+     */
     private static final Pattern buildMetaDataPattern = Pattern
 	    .compile(BUILD_INFORMATION);
 
+    /**
+     * The full version regexp is the combination of three numeric identifiers
+     * chained with dots and optional pre-release information connected with a
+     * minus and build information connect by plus.
+     */
     private static final String versionRegExp = NUMERIC_IDENTIFIER + "\\."
 	    + NUMERIC_IDENTIFIER + "\\." + NUMERIC_IDENTIFIER + "(-("
 	    + PRE_RELEASE_INFORMATION + "))?(\\+(" + BUILD_INFORMATION + "))?";
 
+    /**
+     * The compiled pattern for a version.
+     */
     private static final Pattern versionPattern = Pattern.compile("^"
 	    + versionRegExp + "$");
 
-    public static Version valueOf(String versionString) {
+    /**
+     * This method converts a version string into a {@link Version} object.
+     * 
+     * @param versionString
+     *            is a {@link String} containing the version string to be
+     *            converted.
+     * @return A {@link Version} object is returned.
+     * @throws IllegalArgumentException
+     *             is thrown in case the version string is not valid. The
+     *             message of the exception tells the exact issue.
+     */
+    public static Version valueOf(String versionString)
+	    throws IllegalArgumentException {
 	Matcher matcher = versionPattern.matcher(versionString);
 	if (!matcher.matches()) {
 	    throw new IllegalArgumentException(
@@ -353,22 +406,81 @@ public class Version implements Serializable, Comparable<Version> {
 	buildMetadata = null;
     }
 
-    public Version(int major, int minor, int patch) {
+    /**
+     * Constructor which keeps the pre-release information and build information
+     * unset. The relating version has the form {@link #major}.{@link #minor} .
+     * {@link #patch}.
+     * 
+     * @param major
+     *            is the integer of the major version part.
+     * @param minor
+     *            is the integer of the minor version part.
+     * @param patch
+     *            is the integer of the patch version part.
+     * @throws IllegalArgumentException
+     *             is thrown in case the version information are not valid. The
+     *             message of the exception tells the exact issue.
+     */
+    public Version(int major, int minor, int patch)
+	    throws IllegalArgumentException {
 	this(major, minor, patch, null, null);
     }
 
-    public Version(int major, int minor, int patch,
-	    String preReleaseInformation) {
+    /**
+     * Constructor which keeps the build information unset. The relating version
+     * has the form {@link #major}.{@link #minor}.{@link #patch}-
+     * {@link #preReleaseInformation}.
+     * 
+     * @param major
+     *            is the integer of the major version part.
+     * @param minor
+     *            is the integer of the minor version part.
+     * @param patch
+     *            is the integer of the patch version part.
+     * @param preReleaseInformation
+     *            is the {@link String} of the pre-release part. May be
+     *            <code>null</code> if the pre-release information needs to be
+     *            kept unset.
+     * @throws IllegalArgumentException
+     *             is thrown in case the version information are not valid. The
+     *             message of the exception tells the exact issue.
+     */
+    public Version(int major, int minor, int patch, String preReleaseInformation)
+	    throws IllegalArgumentException {
 	this(major, minor, patch, preReleaseInformation, null);
     }
 
+    /**
+     * Constructor which sets all version information. The relating version has
+     * the form {@link #major}.{@link #minor}.{@link #patch}-
+     * {@link #preReleaseInformation}+{@link #buildMetadata}.
+     * 
+     * @param major
+     *            is the integer of the major version part.
+     * @param minor
+     *            is the integer of the minor version part.
+     * @param patch
+     *            is the integer of the patch version part.
+     * @param preReleaseInformation
+     *            is the {@link String} of the pre-release part. May be
+     *            <code>null</code> if the pre-release information needs to be
+     *            kept unset.
+     * @param buildMetadata
+     *            is the {@link String} of the build metadata part. May be
+     *            <code>null</code> if the build metadata needs to be kept
+     *            unset.
+     * @throws IllegalArgumentException
+     *             is thrown in case the version information are not valid. The
+     *             message of the exception tells the exact issue.
+     */
     @JsonCreator
     public Version(
 	    @JsonProperty("major") int major,
 	    @JsonProperty("minor") int minor,
 	    @JsonProperty("patch") int patch,
 	    @JsonProperty("preReleaseInformation") String preReleaseInformation,
-	    @JsonProperty("buildMetadata") String buildMetadata) {
+	    @JsonProperty("buildMetadata") String buildMetadata)
+	    throws IllegalArgumentException {
 	super();
 	this.major = major;
 	this.minor = minor;
@@ -387,7 +499,7 @@ public class Version implements Serializable, Comparable<Version> {
 	verify();
     }
 
-    private void verify() {
+    private void verify() throws IllegalArgumentException {
 	if (major < 0) {
 	    throw new IllegalArgumentException(
 		    "The major version must not be negative.");
@@ -419,26 +531,62 @@ public class Version implements Serializable, Comparable<Version> {
 	}
     }
 
+    /**
+     * Returns the major version part.
+     * 
+     * @return An int is returned.
+     */
     public int getMajor() {
 	return major;
     }
 
+    /**
+     * Returns the minor version part.
+     * 
+     * @return An int is returned.
+     */
     public int getMinor() {
 	return minor;
     }
 
+    /**
+     * Returns the patch version part.
+     * 
+     * @return An int is returned.
+     */
     public int getPatch() {
 	return patch;
     }
 
+    /**
+     * Returns the pre-release information.
+     * 
+     * @return An {@link String} is returned. The result value might be
+     *         <code>null</code> if this part is not set.
+     */
     public String getPreReleaseInformation() {
 	return preReleaseInformation;
     }
 
+    /**
+     * Returns the build metadata.
+     * 
+     * @return An {@link String} is returned. The result value might be
+     *         <code>null</code> if this part is not set.
+     */
     public String getBuildMetadata() {
 	return buildMetadata;
     }
 
+    /**
+     * This method returns whether the current set version is a stable version
+     * or not. The Semantic Versioning definition defines all versions with a
+     * major version part greater than zero as stable. All other versions are
+     * development versions.
+     * 
+     * @return <code>true</code> is returned in case a stable version is
+     *         defined. <code>false</code> is returned otherwise.
+     */
     @JsonIgnore
     public boolean isStable() {
 	return major > 0;
@@ -488,28 +636,47 @@ public class Version implements Serializable, Comparable<Version> {
 	return true;
     }
 
+    /**
+     * <p>
+     * This method is the implementation of {@link Comparable#compareTo(Object)}
+     * .
+     * </p>
+     * <p>
+     * <b>Note: this class has a natural ordering that is inconsistent with
+     * {@link #equals(Object)}.</b> equals checks correctly with build metadata
+     * information included, but Semantic Versioning does not include this
+     * metadata for version comparison. For any version comparison, use
+     * {@link #compareTo(Version)} instead of {@link #equals(Object)}.
+     * </p>
+     * 
+     * @param other
+     *            is the other version to compare to this one.
+     * @return 1 is returned in case this version is greater than the other. -1
+     *         is returned in case this version is smaller and 0 if both are
+     *         equal.
+     */
     @Override
-    public int compareTo(Version o) {
-	if (major != o.major) {
-	    return Integer.compare(major, o.major);
+    public int compareTo(Version other) {
+	if (major != other.major) {
+	    return Integer.compare(major, other.major);
 	}
-	if (minor != o.minor) {
-	    return Integer.compare(minor, o.minor);
+	if (minor != other.minor) {
+	    return Integer.compare(minor, other.minor);
 	}
-	if (patch != o.patch) {
-	    return Integer.compare(patch, o.patch);
+	if (patch != other.patch) {
+	    return Integer.compare(patch, other.patch);
 	}
 	if (preReleaseInformation == null) {
-	    if (o.preReleaseInformation == null) {
+	    if (other.preReleaseInformation == null) {
 		return 0;
 	    } else {
 		return 1;
 	    }
 	} else {
-	    if (o.preReleaseInformation == null) {
+	    if (other.preReleaseInformation == null) {
 		return -1;
 	    }
-	    return comparePreReleaseInformation(o);
+	    return comparePreReleaseInformation(other);
 	}
     }
 

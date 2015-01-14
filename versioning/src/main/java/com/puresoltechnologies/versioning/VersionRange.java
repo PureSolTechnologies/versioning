@@ -86,18 +86,42 @@ public class VersionRange implements Serializable {
 	}
     }
 
+    /**
+     * Returns the minimum version.
+     * 
+     * @return A {@link Version} object is returned.
+     */
     public Version getMinimum() {
 	return minimum;
     }
 
+    /**
+     * Returns whether the minimum version is included in the range (left
+     * closed).
+     * 
+     * @return <code>true</code> is returned in case the minimum version is
+     *         included e.g. the range is left closed.
+     */
     public boolean isMinimumIncluded() {
 	return minimumIncluded;
     }
 
+    /**
+     * Returns the maximum version.
+     * 
+     * @return A {@link Version} object is returned.
+     */
     public Version getMaximum() {
 	return maximum;
     }
 
+    /**
+     * Returns whether the maximum version is included in the range (right
+     * closed).
+     * 
+     * @return <code>true</code> is returned in case the maximum version is
+     *         included e.g. the range is right closed.
+     */
     public boolean isMaximumIncluded() {
 	return maximumIncluded;
     }
