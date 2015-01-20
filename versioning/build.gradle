@@ -1,0 +1,12 @@
+sourceSets {
+  main {
+    compileClasspath += configurations.provided
+  }
+}
+
+dependencies {
+  compile 'com.puresoltechnologies.commons:osgi:0.3.0'
+  provided libraries.jackson
+  testCompile libraries.jaxrs
+  testCompile libraries.junit
+}
