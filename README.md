@@ -11,4 +11,4 @@ __Please, use the issue tracker at:__
 
 https://bugs.puresol-technologies.net/projects/versioning
 
-[![Build Status](http://ci.puresol-technologies.net/view/Diverse/job/Versioning/badge/icon)](http://ci.puresol-technologies.net/view/Diverse/job/Versioning/)
+[![Build Status](http://ci.puresol-technologies.net/job/Versioning/badge/icon)](http://ci.puresol-technologies.net/job/Versioning/)
