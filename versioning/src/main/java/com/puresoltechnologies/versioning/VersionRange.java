@@ -2,8 +2,8 @@ package com.puresoltechnologies.versioning;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This class represents a version range based on semantic versions implemented

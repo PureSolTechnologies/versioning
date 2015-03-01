@@ -6,12 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 
-import com.puresoltechnologies.versioning.Version;
-import com.puresoltechnologies.versioning.VersionRange;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class VersionRangeTest {
 
