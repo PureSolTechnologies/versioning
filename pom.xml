@@ -1,9 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<prerequisites>
-		<maven>3.2</maven>
-	</prerequisites>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -11,17 +8,11 @@
 		<commons.version>0.3.0</commons.version>
 	</properties>
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>9</version>
-	</parent>
-
 	<groupId>com.puresoltechnologies.versioning</groupId>
 	<artifactId>parent</artifactId>
 	<version>1.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-  
+
 	<name>${officalName} - ${project.artifactId}</name>
 	<description>PureSol Technologies' commons libraries</description>
 	<inceptionYear>2014</inceptionYear>
@@ -64,7 +55,7 @@
 
 	<ciManagement>
 		<system>PureSol Technologies Jenkins</system>
-		  <url>http://ci.puresol-technologies.net/job/Versioning</url>
+		<url>http://ci.puresol-technologies.net/job/Versioning</url>
 	</ciManagement>
 
 	<distributionManagement>
@@ -115,14 +106,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<tagNameFormat>v@{project.version}</tagNameFormat>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>com.puresoltechnologies.maven.plugins</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>1.2.1</version>
@@ -150,7 +133,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.0.4</version>
 				<executions>
 					<execution>
 						<phase>verify</phase>
@@ -163,7 +146,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.6.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -173,6 +156,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
 				<configuration>
 					<archive>
 						<index>true</index>
@@ -192,10 +176,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>verify</phase>
 						<goals>
 							<goal>jar-no-fork</goal>
 						</goals>
@@ -218,9 +202,22 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>3.3.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<manifestLocation>META-INF</manifestLocation>
@@ -252,13 +249,38 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.4</version>
+				<version>3.6</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.18</version>
+				<version>2.20</version>
 			</plugin>
 		</plugins>
 		<extensions>
@@ -270,10 +292,6 @@
 		</extensions>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.9</version>
-				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
@@ -314,7 +332,6 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
