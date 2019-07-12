@@ -1,12 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<officalName>Versioning</officalName>
-		<commons.version>0.3.0</commons.version>
-	</properties>
 
 	<groupId>com.puresoltechnologies.versioning</groupId>
 	<artifactId>parent</artifactId>
@@ -15,14 +9,12 @@
 
 	<name>${officalName} - ${project.artifactId}</name>
 	<description>PureSol Technologies' commons libraries</description>
-	<inceptionYear>2014</inceptionYear>
 	<url>http://opensource.puresol-technologies.com/commons</url>
-
+	<inceptionYear>2014</inceptionYear>
 	<organization>
 		<name>PureSol Technologies</name>
 		<url>http://puresol-technologies.com</url>
 	</organization>
-
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -30,13 +22,6 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
-	<scm>
-		<developerConnection>scm:git:https://github.com/PureSolTechnologies/versioning</developerConnection>
-		<connection>scm:git:https://github.com/PureSolTechnologies/versioning</connection>
-		<url>https://github.com/PureSolTechnologies/versioning.git</url>
-		<tag>HEAD</tag>
-	</scm>
 
 	<developers>
 		<developer>
@@ -48,17 +33,40 @@
 		</developer>
 	</developers>
 
+	<modules>
+		<module>versioning</module>
+		<module>test</module>
+	</modules>
+
+	<scm>
+		<developerConnection>scm:git:https://github.com/PureSolTechnologies/versioning</developerConnection>
+		<connection>scm:git:https://github.com/PureSolTechnologies/versioning</connection>
+		<url>https://github.com/PureSolTechnologies/versioning.git</url>
+		<tag>HEAD</tag>
+	</scm>
 	<issueManagement>
 		<system>Redmine</system>
 		<url>https://bugs.puresol-technologies.net/projects/versioning</url>
 	</issueManagement>
-
 	<ciManagement>
 		<system>PureSol Technologies Jenkins</system>
 		<url>http://ci.puresol-technologies.net/job/Versioning</url>
 	</ciManagement>
-
 	<distributionManagement>
+		<repository>
+			<id>release-repository</id>
+			<name>Release Repository</name>
+			<layout>default</layout>
+			<uniqueVersion>true</uniqueVersion>
+			<url>${release.repository.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repository</id>
+			<name>Snapshot Repository</name>
+			<layout>default</layout>
+			<uniqueVersion>true</uniqueVersion>
+			<url>${snapshot.repository.url}</url>
+		</snapshotRepository>
 		<site>
 			<id>FTPPureSolTechnologiesCom</id>
 			<name>FTPPureSolTechnologiesCom</name>
@@ -66,21 +74,27 @@
 		</site>
 	</distributionManagement>
 
-	<repositories />
-	<pluginRepositories />
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<officalName>Versioning</officalName>
+		<commons.version>0.3.0</commons.version>
+	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>com.puresoltechnologies.commons</groupId>
-				<artifactId>osgi</artifactId>
-				<version>${commons.version}</version>
-			</dependency>
+			<!-- Self -->
 			<dependency>
 				<groupId>com.puresoltechnologies.versioning</groupId>
 				<artifactId>versioning</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<!-- PureSol Technologies -->
+			<dependency>
+				<groupId>com.puresoltechnologies.commons</groupId>
+				<artifactId>osgi</artifactId>
+				<version>${commons.version}</version>
+			</dependency>
+			<!-- 3rd party -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.jaxrs</groupId>
 				<artifactId>jackson-jaxrs-base</artifactId>
@@ -103,12 +117,116 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<repositories />
+	<pluginRepositories />
+
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.0.0-M1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0-M2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.6</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>3.0.0-M1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+					<configuration>
+						<locales>en</locales>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.0.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M3</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>3.0.0-M3</version>
+				</plugin>
+				<plugin>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>3.1.11</version>
+				</plugin>
+				<plugin>
+					<groupId>com.puresoltechnologies.maven.plugins</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.2.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>tidy-maven-plugin</artifactId>
+					<version>1.1.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
+			<plugin>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<dependencyConvergence>
+									<uniqueVersions>true</uniqueVersions>
+								</dependencyConvergence>
+								<requireJavaVersion>
+									<version>[9,)</version>
+								</requireJavaVersion>
+								<requireMavenVersion>
+									<version>[3.6.0,)</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>com.puresoltechnologies.maven.plugins</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>1.2.1</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -131,32 +249,33 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.4</version>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>verify</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
+						<configuration>
+							<effort>Max</effort>
+							<threshold>Low</threshold>
+							<xmlOutput>true</xmlOutput>
+							<xmlOutputDirectory>target/site</xmlOutputDirectory>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>11</source>
+					<target>11</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
 				<configuration>
 					<archive>
 						<index>true</index>
@@ -174,9 +293,7 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -202,64 +319,19 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.3.0</version>
-				<extensions>true</extensions>
 				<configuration>
-					<manifestLocation>META-INF</manifestLocation>
-					<instructions>
-						<Specification-Title>${project.name}</Specification-Title>
-						<Specification-Version>${project.version}</Specification-Version>
-						<Specification-Vendor>${project.organization.name}</Specification-Vendor>
-						<Implementation-Title>${project.groupId}:${project.artifactId}</Implementation-Title>
-						<Implementation-Version>${project.version}</Implementation-Version>
-						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-						<Vendor-URL>${project.organization.url}</Vendor-URL>
-						<Project-URL>${project.url}</Project-URL>
-						<!-- The Bundle-SymbolicName is fixed in this way. Otherwise Tycho 
-							will not find the bundle. -->
-						<Bundle-SymbolicName>${bundle.namespace}.bundle</Bundle-SymbolicName>
-						<Bundle-Name>${bundle.namespace}.bundle</Bundle-Name>
-						<Bundle-Version>${project.version}</Bundle-Version>
-						<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
-						<Export-Package>${bundle.namespace}.*;version="${project.version}"</Export-Package>
-						<Bundle-Activator>${bundle.namespace}.Activator</Bundle-Activator>
-						<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-						<!-- embed compile/runtime dependencies using path that matches the 
-							copied dependency folder -->
-						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
-						<Embed-Directory>dependencies</Embed-Directory>
-						<Embed-StripGroup>true</Embed-StripGroup>
-					</instructions>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+					<!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
+					</docletArtifact>
+					<additionalOptions>
+						<additionalOption>-views</additionalOption>
+					</additionalOptions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
@@ -273,73 +345,87 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.6</version>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.20</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tidy-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-ftp</artifactId>
-				<version>2.12</version>
+				<version>3.0.0</version>
 			</extension>
 		</extensions>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.puresoltechnologies.maven.plugins
-										</groupId>
-										<artifactId>
-											license-maven-plugin
-										</artifactId>
-										<versionRange>
-											[1.2.0,)
-										</versionRange>
-										<goals>
-											<goal>validate</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<reporting>
 		<plugins>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<id>html</id>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+					<reportSet>
+						<id>doccheck</id>
+						<configuration>
+							<doclet>com.sun.tools.doclets.doccheck.DocCheck</doclet>
+
+							<!-- <docletPath>/path/to/doccheck.jar</docletPath> -->
+							<docletArtifact>
+								<groupId>com.sun.tools.doclets</groupId>
+								<artifactId>doccheck</artifactId>
+								<version>1.2b2</version>
+							</docletArtifact>
+							<additionalOptions>
+								<additionalOption>-d</additionalOption>
+								<additionalOption>${project.build.directory}/site/doccheck</additionalOption>
+							</additionalOptions>
+
+							<!-- Other dir than apidocs -->
+							<destDir>doccheck</destDir>
+
+							<!-- For the project-reports page -->
+							<name>DocCheck</name>
+							<description>DocCheck documentation.</description>
+						</configuration>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+					<!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
+					</docletArtifact>
+					<additionalOptions>
+						<additionalOption>-views</additionalOption>
+					</additionalOptions>
+				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>com.puresoltechnologies.maven.plugins</groupId>
@@ -348,9 +434,91 @@
 		</plugins>
 	</reporting>
 
-	<modules>
-		<module>versioning</module>
-		<module>test</module>
-	</modules>
-
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>m2e</id>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<!--This plugin's configuration is used to store Eclipse m2e settings 
+							only. It has no influence on the Maven build itself. -->
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													com.puresoltechnologies.maven.plugins
+												</groupId>
+												<artifactId>
+													license-maven-plugin
+												</artifactId>
+												<versionRange>
+													[1.2.0,)
+												</versionRange>
+												<goals>
+													<goal>validate</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													org.codehaus.mojo
+												</groupId>
+												<artifactId>
+													tidy-maven-plugin
+												</artifactId>
+												<versionRange>
+													[1.1.0,)
+												</versionRange>
+												<goals>
+													<goal>check</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore></ignore>
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
 </project>
