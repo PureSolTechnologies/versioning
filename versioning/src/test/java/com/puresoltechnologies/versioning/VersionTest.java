@@ -2,14 +2,8 @@ package com.puresoltechnologies.versioning;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
 
 import org.junit.Test;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class VersionTest {
 
@@ -139,24 +133,17 @@ public class VersionTest {
 
     @Test
     public void testPreInformationToString() {
-	assertThat(new Version(1, 0, 0, "alpha").toString(),
-		equalTo("1.0.0-alpha"));
-	assertThat(new Version(1, 0, 0, "alpha.1").toString(),
-		equalTo("1.0.0-alpha.1"));
-	assertThat(new Version(1, 0, 0, "0.3.7").toString(),
-		equalTo("1.0.0-0.3.7"));
-	assertThat(new Version(1, 0, 0, "x.7.z.92").toString(),
-		equalTo("1.0.0-x.7.z.92"));
+	assertThat(new Version(1, 0, 0, "alpha").toString(), equalTo("1.0.0-alpha"));
+	assertThat(new Version(1, 0, 0, "alpha.1").toString(), equalTo("1.0.0-alpha.1"));
+	assertThat(new Version(1, 0, 0, "0.3.7").toString(), equalTo("1.0.0-0.3.7"));
+	assertThat(new Version(1, 0, 0, "x.7.z.92").toString(), equalTo("1.0.0-x.7.z.92"));
     }
 
     @Test
     public void testBuildMetadataToString() {
-	assertThat(new Version(1, 0, 0, "alpha", "001").toString(),
-		equalTo("1.0.0-alpha+001"));
-	assertThat(new Version(1, 0, 0, "", "20130313144700").toString(),
-		equalTo("1.0.0+20130313144700"));
-	assertThat(new Version(1, 0, 0, "beta", "exp.sha.5114f85").toString(),
-		equalTo("1.0.0-beta+exp.sha.5114f85"));
+	assertThat(new Version(1, 0, 0, "alpha", "001").toString(), equalTo("1.0.0-alpha+001"));
+	assertThat(new Version(1, 0, 0, "", "20130313144700").toString(), equalTo("1.0.0+20130313144700"));
+	assertThat(new Version(1, 0, 0, "beta", "exp.sha.5114f85").toString(), equalTo("1.0.0-beta+exp.sha.5114f85"));
     }
 
     public void testSimpleCompareTo() {
@@ -220,15 +207,5 @@ public class VersionTest {
 	assertThat(version8.compareTo(version7), equalTo(1));
 
 	assertThat(version8.compareTo(version8), equalTo(0));
-    }
-
-    @Test
-    public void testJSONSerialization() throws JsonGenerationException,
-	    JsonMappingException, IOException {
-	Version original = new Version(1, 2, 3, "pre", "meta");
-	String serialized = JSONSerializer.toJSONString(original);
-	Version deserialized = JSONSerializer.fromJSONString(serialized,
-		Version.class);
-	assertEquals(original, deserialized);
     }
 }

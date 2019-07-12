@@ -96,19 +96,6 @@
 			</dependency>
 			<!-- 3rd party -->
 			<dependency>
-				<groupId>com.fasterxml.jackson.jaxrs</groupId>
-				<artifactId>jackson-jaxrs-base</artifactId>
-				<version>2.4.1</version>
-				<!-- This dependency needs to be provided by the container or application -->
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.core</artifactId>
-				<version>5.0.0</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
