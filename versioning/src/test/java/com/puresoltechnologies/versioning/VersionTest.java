@@ -2,8 +2,9 @@ package com.puresoltechnologies.versioning;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VersionTest {
 
@@ -15,24 +16,24 @@ public class VersionTest {
 	new Version(0, 0, 1, null, null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalLeadingZeroMajorNumber() {
-	Version.valueOf("01.2.3");
+	assertThrows(IllegalArgumentException.class, () -> Version.valueOf("01.2.3"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalLeadingZeroMinorNumber() {
-	Version.valueOf("1.02.3");
+	assertThrows(IllegalArgumentException.class, () -> Version.valueOf("1.02.3"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalLeadingZeroPatchNumber() {
-	Version.valueOf("1.2.03");
+	assertThrows(IllegalArgumentException.class, () -> Version.valueOf("1.2.03"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalLeadingZeroPreReleaseInformation() {
-	Version.valueOf("1.2.3-1.02");
+	assertThrows(IllegalArgumentException.class, () -> Version.valueOf("1.2.3-1.02"));
     }
 
     @Test
@@ -99,29 +100,29 @@ public class VersionTest {
 	new Version(0, 0, 0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalMajorVersion() {
-	new Version(-1, 0, 0);
+	assertThrows(IllegalArgumentException.class, () -> new Version(-1, 0, 0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalMinorVersion() {
-	new Version(0, -1, 0);
+	assertThrows(IllegalArgumentException.class, () -> new Version(0, -1, 0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalPatchVersion() {
-	new Version(0, 0, -1);
+	assertThrows(IllegalArgumentException.class, () -> new Version(0, 0, -1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalPreReleaseInformation() {
-	new Version(0, 0, 1, "a.2-3.1#");
+	assertThrows(IllegalArgumentException.class, () -> new Version(0, 0, 1, "a.2-3.1#"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalBuildMetadata() {
-	new Version(0, 0, 1, null, "a.2-3.1#");
+	assertThrows(IllegalArgumentException.class, () -> new Version(0, 0, 1, null, "a.2-3.1#"));
     }
 
     @Test

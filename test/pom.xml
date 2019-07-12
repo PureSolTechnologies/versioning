@@ -11,21 +11,19 @@
 	<artifactId>versioning.test</artifactId>
 
 	<name>${officalName} - ${project.artifactId}</name>
-	<description>Within this test module, not JSON dependencies are included 
-			to test everything without JSON support to assure a possible usage without 
-			it. JSON support is test within versioning module itself.</description>
 
 	<dependencies>
-		<!-- Within this test module, there must not be JSON dependencies included 
-			to test everything without JSON support to assure a possible usage without 
-			it. JSON support is test within versioning module itself. -->
 		<dependency>
 			<groupId>com.puresoltechnologies.versioning</groupId>
 			<artifactId>versioning</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
 		</dependency>
 	</dependencies>
 </project>

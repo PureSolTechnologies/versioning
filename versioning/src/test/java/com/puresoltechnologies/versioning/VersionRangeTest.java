@@ -1,21 +1,22 @@
 package com.puresoltechnologies.versioning;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VersionRangeTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidRangeLeftUnboundButIncluded() {
-	new VersionRange(null, true, new Version(1, 0, 0), true);
+	assertThrows(IllegalArgumentException.class, () -> new VersionRange(null, true, new Version(1, 0, 0), true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidRangeRightUnboundButIncluded() {
-	new VersionRange(new Version(1, 0, 0), true, null, true);
+	assertThrows(IllegalArgumentException.class, () -> new VersionRange(new Version(1, 0, 0), true, null, true));
     }
 
     @Test

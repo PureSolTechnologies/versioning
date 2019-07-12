@@ -1,17 +1,15 @@
 package com.puresoltechnologies.versioning;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
-
-import com.puresoltechnologies.versioning.Version;
-import com.puresoltechnologies.versioning.VersionMath;
+import org.junit.jupiter.api.Test;
 
 public class VersionMathTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMinimumEmptyArguments() {
-	VersionMath.min();
+	assertThrows(IllegalArgumentException.class, () -> VersionMath.min());
     }
 
     @Test
@@ -38,9 +36,9 @@ public class VersionMathTest {
 	assertEquals(version2, minimum);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMaximumEmptyArguments() {
-	VersionMath.max();
+	assertThrows(IllegalArgumentException.class, () -> VersionMath.max());
     }
 
     @Test
