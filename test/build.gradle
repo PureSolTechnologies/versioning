@@ -1,4 +1,0 @@
-dependencies {
-  compile project(':versioning')
-  testCompile libraries.junit
-}
