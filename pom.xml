@@ -350,7 +350,6 @@
 
 	<modules>
 		<module>versioning</module>
-		<module>bundle</module>
 		<module>test</module>
 	</modules>
 
