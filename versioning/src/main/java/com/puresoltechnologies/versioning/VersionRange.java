@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * This version range supports all possible combinations of bound and unbound
  * and closed and open intervals. Unbound intervals are set with null values
- * instead of specific versions and open or closed boundaries are specfied with
+ * instead of specific versions and open or closed boundaries are specified with
  * flags.
  *
  * <b>Attention:</b> An unbound minimum version is automatically transformed
@@ -39,7 +39,7 @@ public class VersionRange implements Serializable {
     }
 
     /**
-     * This is the full initial value constructor. The
+     * This is the full initial value constructor.
      *
      * @param minimum         is the minimum {@link Version} of this version range.
      *                        This version may be null to signal that there is no
